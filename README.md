@@ -1,5 +1,9 @@
 # Launch Radar — a token launch radar for make.fun's token-radar-01
 
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/faldysetyawan/token-radar-01/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/faldysetyawan/token-radar-01/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+
 Launch Radar reads the sealed DefiLlama snapshot of the protocol universe, works out which protocols
 still record no token and are not a wrapped, staked or bridged product of one that trades, ranks them
 by what their launch would be worth, and hands in a dashboard that shows the board, a detail view for
@@ -64,3 +68,7 @@ position on a second chain, its TVL sets the suggested capital ($50–$500), and
 
 An implied value is this board's own claim about what a launch would be worth if a protocol's record
 stayed as it is. It is not a prediction that a token will be issued, and it is not a price.
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=tznygv96&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
