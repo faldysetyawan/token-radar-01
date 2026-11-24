@@ -3,10 +3,9 @@
 // The program reads the sealed snapshot from /input/snapshot.json (or --input <file|dir>), scores every
 // protocol that passes the screen in lib/model.ts with a peer-calibrated value model, writes the ranked
 // board to /output/board.json, writes the dashboard's data to /output/data.js, copies this repository's
-// dashboard/ to /output, decodes the screenshots — stored base64-encoded under screenshots/ because the
-// tooling that pushes this repository to GitHub carries text only — back to their identical PNG bytes in
-// /output, and last writes /output/dossier.json, the summary the judge reads, with the vendored make.fun
-// library. The run is deterministic: the same snapshot in, the same bytes out, twice over.
+// dashboard/ and screenshots/ to /output, and last writes /output/dossier.json, the summary the judge
+// reads, with the vendored make.fun library. The run is deterministic: the same snapshot in, the same
+// bytes out, twice over.
 //
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input ../input/snapshot.json
@@ -68,34 +67,7 @@ function copyFiles(from: string, to: string): string[] {
 }
 
 const dashFiles = copyFiles(join(here, 'dashboard'), join(out, 'dashboard'));
-
-/**
- * Write the screenshots into `to`, decoding each stored screenshots/<name>.b64 back to the
- * identical image bytes at <name>. Names that start with a dot and files without the .b64
- * suffix are skipped. A stored file that is not valid base64 ends the run, the way an
- * unreadable screenshots directory did before the encoding was introduced.
- */
-function decodeScreenshots(from: string, to: string): string[] {
-  if (!existsSync(from)) return [];
-  mkdirSync(to, { recursive: true });
-  const written: string[] = [];
-  for (const name of readdirSync(from)) {
-    if (name.startsWith('.') || !name.endsWith('.b64')) continue;
-    const path = join(from, name);
-    if (!statSync(path).isFile()) continue;
-    const encoded = readFileSync(path, 'utf8').replace(/\s+/g, '');
-    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded) || encoded.length % 4 !== 0) {
-      process.stderr.write(`launch radar: screenshots/${name}: not valid base64: the stored screenshot cannot be decoded\n`);
-      process.exit(1);
-    }
-    const outName = name.slice(0, -'.b64'.length);
-    writeFileSync(join(to, outName), Buffer.from(encoded, 'base64'));
-    written.push(outName);
-  }
-  return written.sort();
-}
-
-const shots = decodeScreenshots(join(here, 'screenshots'), join(out, 'screenshots'));
+const shots = copyFiles(join(here, 'screenshots'), join(out, 'screenshots'));
 if (shots.length < 3) {
   process.stderr.write(`launch radar: screenshots/ holds ${shots.length} image${shots.length === 1 ? '' : 's'}: hand in 3, the board, a detail view and a filtered view\n`);
   process.exit(1);

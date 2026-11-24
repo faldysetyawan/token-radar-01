@@ -64,10 +64,3 @@ position on a second chain, its TVL sets the suggested capital ($50–$500), and
 
 An implied value is this board's own claim about what a launch would be worth if a protocol's record
 stayed as it is. It is not a prediction that a token will be issued, and it is not a price.
-
-## Screenshots
-
-The three screenshots under `screenshots/` are stored base64-encoded (`.png.b64`): the
-tooling that pushes this repository to GitHub carries text only, so the images travel as
-text and `main.ts` decodes them back to the identical PNG bytes in `/output/screenshots/`
-on every run. To view one locally: `base64 -d screenshots/1-board.png.b64 > board.png`.
